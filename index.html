@@ -19,13 +19,6 @@
             height: 100vh;
             text-align: center;
             overflow: hidden;
-            transition: opacity 0.6s ease, transform 0.6s ease, filter 0.6s ease;
-        }
-
-        body.fade-out {
-            opacity: 0;
-            transform: scale(1.1);
-            filter: blur(20px);
         }
 
         /* === MAIN CONTENT === */
@@ -87,14 +80,240 @@
             height: 18px;
             fill: #ede0ed;
         }
+
+        /* === GAMES SECTION === */
+        .games-section {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #c5a6c5;
+            z-index: 9998;
+            overflow-y: auto;
+            padding: 80px 20px 40px;
+            opacity: 0;
+            transform: scale(0.9);
+            filter: blur(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease, filter 0.6s ease;
+        }
+
+        .games-section.active {
+            display: block;
+        }
+
+        .games-section.show {
+            opacity: 1;
+            transform: scale(1);
+            filter: blur(0);
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: rgba(174, 101, 174, 0.3);
+            border: 2px solid rgba(237, 224, 237, 1);
+            border-radius: 25px;
+            padding: 8px 16px;
+            color: #ede0ed;
+            font-family: Arial, sans-serif;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 9999;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+                         0 0 20px rgba(174, 101, 174, 0.8),
+                         0 0 30px rgba(174, 101, 174, 0.5);
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .back-button:hover {
+            background-color: rgba(174, 101, 174, 0.5);
+            box-shadow: 0 0 15px rgba(237, 224, 237, 0.8);
+        }
+
+        .games-title {
+            color: #ede0ed;
+            font-family: Arial, sans-serif;
+            font-size: 3rem;
+            text-align: center;
+            margin: 2rem 0;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+                         0 0 20px rgba(174, 101, 174, 0.8),
+                         0 0 30px rgba(174, 101, 174, 0.5);
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .search-container {
+            max-width: 500px;
+            margin: 0 auto 2rem;
+            padding: 0 20px;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 12px 20px;
+            font-family: Arial, sans-serif;
+            font-size: 1rem;
+            background-color: rgba(0, 0, 0, 0.4);
+            border: 2px solid rgba(237, 224, 237, 1);
+            border-radius: 25px;
+            color: #ede0ed;
+            outline: none;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .search-bar::placeholder {
+            color: rgba(237, 224, 237, 0.5);
+        }
+
+        .search-bar:focus {
+            background-color: rgba(0, 0, 0, 0.6);
+            box-shadow: 0 0 15px rgba(174, 101, 174, 0.6);
+        }
+
+        .games-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 150px));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            justify-content: center;
+        }
+
+        .game-card {
+            background-color: rgba(0, 0, 0, 0.6);
+            border: 2px solid rgba(237, 224, 237, 1);
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 12px rgba(174, 101, 174, 0.4);
+            aspect-ratio: 1 / 1;
+            position: relative;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 1);
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.9),
+                        0 0 40px rgba(255, 255, 255, 0.6),
+                        0 0 60px rgba(255, 255, 255, 0.3);
+        }
+
+        .game-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .game-info {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.8);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .game-card:hover .game-info {
+            opacity: 1;
+        }
+
+        .game-title {
+            color: #ede0ed;
+            font-family: Arial, sans-serif;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin: 0;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+                         0 0 20px rgba(174, 101, 174, 0.8),
+                         0 0 30px rgba(174, 101, 174, 0.5);
+        }
+
+        /* === GAME MODAL === */
+        .game-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .game-modal.active {
+            display: flex;
+        }
+
+        .game-modal-content {
+            width: 80vw;
+            height: 80vh;
+            background: #1a1a1a;
+            border-radius: 15px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 30px rgba(174, 101, 174, 0.6);
+        }
+
+        .game-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background: linear-gradient(90deg, #c5a6c5, #ae65ae);
+            color: #ede0ed;
+            font-family: Arial, sans-serif;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .game-modal-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .game-modal-header button {
+            background: none;
+            border: none;
+            color: #ede0ed;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: all 0.2s ease;
+        }
+
+        .game-modal-header button:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .game-modal-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
     </style>
 </head>
 <body>
     <!-- Main Content -->
     <h1>Zenith Games</h1>
-    <a href="games.html">
-        <img src="Website Images/Zenith Logo.png" alt="Zenith Games Logo" class="logo">
-    </a>
+    <img src="Website Images/Zenith Logo.png" alt="Zenith Games Logo" class="logo" onclick="showGames()">
 
     <!-- Live User Counter -->
     <div class="visitor-counter">
@@ -102,6 +321,40 @@
             <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
         </svg>
         Live Users: <span id="visitor-count">Loading...</span>
+    </div>
+
+    <!-- Games Section -->
+    <div class="games-section" id="gamesSection">
+        <button class="back-button" onclick="hideGames()">← Back</button>
+        <h2 class="games-title">Zenith Games</h2>
+        
+        <!-- Search Bar --> 
+        <div class="search-container">
+            <input type="text" class="search-bar" id="gameSearch" placeholder="Search Games..." oninput="filterGames()">
+        </div>
+
+        <div class="games-container" id="gamesContainer">
+            <div class="game-card" data-game-name="balatro" onclick="openGame('Games/Balatro.html', 'Balatro')">
+                <img src="Game Logos/Balatro_cover.jpg" alt="Balatro" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Balatro</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Modal -->
+    <div class="game-modal" id="gameModal">
+        <div class="game-modal-content">
+            <div class="game-modal-header">
+                <span id="modalGameTitle"></span>
+                <div class="game-modal-buttons">
+                    <button onclick="toggleFullscreen()">⛶</button>
+                    <button onclick="closeGame()">✕</button>
+                </div>
+            </div>
+            <iframe id="gameIframe" class="game-modal-iframe" allowfullscreen></iframe>
+        </div>
     </div>
 
     <!-- Firebase SDK -->
@@ -145,14 +398,75 @@
             document.getElementById('visitor-count').textContent = count;
         });
 
-        // ==================== PAGE TRANSITION ====================
-        const link = document.querySelector('a[href="games.html"]');
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            document.body.classList.add('fade-out');
+        // ==================== GAMES SECTION ====================
+        function showGames() {
+            const gamesSection = document.getElementById('gamesSection');
+            gamesSection.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // Trigger animation after display is set
             setTimeout(() => {
-                window.location.href = 'games.html';
+                gamesSection.classList.add('show');
+            }, 10);
+        }
+
+        function hideGames() {
+            const gamesSection = document.getElementById('gamesSection');
+            gamesSection.classList.remove('show');
+            
+            // Remove active class after animation completes
+            setTimeout(() => {
+                gamesSection.classList.remove('active');
+                document.body.style.overflow = '';
             }, 600);
+            
+            document.getElementById('gameSearch').value = '';
+            filterGames();
+        }
+
+        function filterGames() {
+            const searchValue = document.getElementById('gameSearch').value.toLowerCase();
+            const gameCards = document.querySelectorAll('.game-card');
+            
+            gameCards.forEach(card => {
+                const gameName = card.getAttribute('data-game-name');
+                if (gameName.startsWith(searchValue)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // ==================== GAME MODAL ====================
+        function openGame(url, title) {
+            document.getElementById('gameModal').classList.add('active');
+            document.getElementById('gameIframe').src = url;
+            document.getElementById('modalGameTitle').textContent = title;
+        }
+
+        function closeGame() {
+            document.getElementById('gameModal').classList.remove('active');
+            document.getElementById('gameIframe').src = '';
+        }
+
+        function toggleFullscreen() {
+            const iframe = document.getElementById('gameIframe');
+            if (iframe.requestFullscreen) {
+                iframe.requestFullscreen();
+            } else if (iframe.webkitRequestFullscreen) {
+                iframe.webkitRequestFullscreen();
+            } else if (iframe.mozRequestFullScreen) {
+                iframe.mozRequestFullScreen();
+            }
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('gameModal').addEventListener('click', (e) => {
+            if (e.target.id === 'gameModal') {
+                e.preventDefault();
+                e.stopPropagation();
+            }
         });
     </script>
 </body>
