@@ -67,7 +67,7 @@
             color: #ede0ed;
             font-family: Arial, sans-serif;
             font-size: 3rem;
-            margin: 0 0 2rem 0;
+            margin: 2rem 0 2rem 0;
             text-align: center;
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
                          0 0 20px rgba(174, 101, 174, 0.8),
@@ -84,6 +84,7 @@
             max-width: 1200px;
             padding: 20px;
             margin: 0 auto 40px;
+            justify-items: center;
         }
 
         .game-card {
@@ -109,7 +110,7 @@
         .game-image {
             width: 100%;
             height: 180px;
-            background-color: rgba(174, 101, 174, 0.2);
+            object-fit: cover;
             border-bottom: 2px solid rgba(237, 224, 237, 0.5);
         }
 
@@ -156,6 +157,94 @@
             background-color: rgba(174, 101, 174, 0.3);
             box-shadow: 0 0 10px rgba(237, 224, 237, 0.5);
         }
+
+        /* === GAME IFRAME === */
+        .game-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .game-overlay.active {
+            display: flex;
+        }
+
+        body.no-scroll {
+            overflow: hidden !important;
+            height: 100vh;
+            width: 100vw;
+            position: fixed;
+        }
+
+        .game-container {
+            width: 70vw;
+            height: 70vh;
+            background: #000;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .game-container.fullscreen {
+            width: 100vw;
+            height: 100vh;
+            border-radius: 0;
+        }
+
+        .game-controls {
+            background: #1a1a1a;
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .game-name {
+            color: #ede0ed;
+            font-family: Arial, sans-serif;
+            font-size: 1rem;
+        }
+
+        .game-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .game-btn {
+            background: rgba(237, 224, 237, 0.1);
+            border: 1px solid rgba(237, 224, 237, 0.3);
+            color: #ede0ed;
+            padding: 6px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: Arial, sans-serif;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .game-btn:hover {
+            background: rgba(237, 224, 237, 0.2);
+            border-color: rgba(237, 224, 237, 0.6);
+        }
+
+        .game-iframe {
+            flex: 1;
+            border: none;
+            width: 100%;
+            background: #000;
+        }
     </style>
 </head>
 <body>
@@ -164,12 +253,11 @@
 
     <!-- Games Container -->
     <div class="games-container">
-        <div class="game-card">
-            <div class="game-image"></div>
+        <div class="game-card" onclick="openGame('Games/Balatro.html', 'Balatro')">
+            <img src="Game Logos/Balatro_cover.jpg" alt="Balatro" class="game-image">
             <div class="game-info">
-                <h3 class="game-title">Game Title</h3>
-                <p class="game-description">A description of the game goes here with details about gameplay and features</p>
-                <button class="launch-button">[LAUNCH: GAME_NAME]</button>
+                <h3 class="game-title">Balatro</h3>
+                <p class="game-description">A poker-inspired roguelike deck builder where you must play illegal poker hands to win</p>
             </div>
         </div>
         <div class="game-card">
@@ -177,7 +265,6 @@
             <div class="game-info">
                 <h3 class="game-title">Game Title</h3>
                 <p class="game-description">A description of the game goes here with details about gameplay and features</p>
-                <button class="launch-button">[LAUNCH: GAME_NAME]</button>
             </div>
         </div>
         <div class="game-card">
@@ -185,7 +272,6 @@
             <div class="game-info">
                 <h3 class="game-title">Game Title</h3>
                 <p class="game-description">A description of the game goes here with details about gameplay and features</p>
-                <button class="launch-button">[LAUNCH: GAME_NAME]</button>
             </div>
         </div>
         <div class="game-card">
@@ -193,7 +279,6 @@
             <div class="game-info">
                 <h3 class="game-title">Game Title</h3>
                 <p class="game-description">A description of the game goes here with details about gameplay and features</p>
-                <button class="launch-button">[LAUNCH: GAME_NAME]</button>
             </div>
         </div>
         <div class="game-card">
@@ -201,7 +286,6 @@
             <div class="game-info">
                 <h3 class="game-title">Game Title</h3>
                 <p class="game-description">A description of the game goes here with details about gameplay and features</p>
-                <button class="launch-button">[LAUNCH: GAME_NAME]</button>
             </div>
         </div>
         <div class="game-card">
@@ -209,9 +293,59 @@
             <div class="game-info">
                 <h3 class="game-title">Game Title</h3>
                 <p class="game-description">A description of the game goes here with details about gameplay and features</p>
-                <button class="launch-button">[LAUNCH: GAME_NAME]</button>
             </div>
         </div>
     </div>
+
+    <!-- Game Overlay -->
+    <div class="game-overlay" id="gameOverlay">
+        <div class="game-container" id="gameContainer">
+            <div class="game-controls">
+                <span class="game-name" id="gameName">Game</span>
+                <div class="game-buttons">
+                    <button class="game-btn" onclick="toggleFullscreen()">⛶ Fullscreen</button>
+                    <button class="game-btn" onclick="closeGame()">✕ Exit</button>
+                </div>
+            </div>
+            <iframe class="game-iframe" id="gameIframe"></iframe>
+        </div>
+    </div>
+
+    <script>
+        let isFullscreen = false;
+
+        function openGame(url, name) {
+            document.getElementById('gameName').textContent = name;
+            document.getElementById('gameIframe').src = url;
+            document.getElementById('gameOverlay').classList.add('active');
+            document.body.classList.add('no-scroll');
+        }
+
+        function closeGame() {
+            document.getElementById('gameOverlay').classList.remove('active');
+            document.getElementById('gameIframe').src = '';
+            document.body.classList.remove('no-scroll');
+            if (isFullscreen) {
+                toggleFullscreen();
+            }
+        }
+
+        function toggleFullscreen() {
+            const container = document.getElementById('gameContainer');
+            isFullscreen = !isFullscreen;
+            if (isFullscreen) {
+                container.classList.add('fullscreen');
+            } else {
+                container.classList.remove('fullscreen');
+            }
+        }
+
+        // Close when clicking outside
+        document.getElementById('gameOverlay').addEventListener('click', (e) => {
+            if (e.target.id === 'gameOverlay') {
+                closeGame();
+            }
+        });
+    </script>
 </body>
 </html>
