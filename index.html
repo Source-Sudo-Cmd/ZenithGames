@@ -6,6 +6,7 @@
     <title>Zenith Games</title>
     <link rel="icon" type="image/svg+xml" href="Website Images/Zenith Favicon.svg">
     <style>
+        /* === BASE STYLES === */
         body {
             margin: 0;
             padding: 0;
@@ -16,8 +17,28 @@
             align-items: center;
             min-height: 100vh;
             text-align: center;
+            cursor: none;
         }
-        
+
+        /* === CUSTOM CURSOR === */
+        .custom-cursor {
+            width: 20px;
+            height: 20px;
+            background-color: rgba(237, 224, 237, 0.2);
+            border: 2px solid rgba(237, 224, 237, 0.5);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.15s ease-out;
+            transform: translate(-50%, -50%);
+        }
+
+        a, img, button {
+            cursor: none !important;
+        }
+
+        /* === MAIN CONTENT === */
         h1 {
             color: #ede0ed;
             font-family: Arial, sans-serif;
@@ -29,7 +50,7 @@
             user-select: none;
             -webkit-user-select: none;
         }
-        
+
         .logo {
             max-width: 60vw;
             max-height: 60vh;
@@ -44,16 +65,135 @@
             cursor: pointer;
             transition: transform 0.5s ease-in-out;
         }
-        
+
         .logo:hover {
             transform: scale(1.05);
+        }
+
+        /* === VISITOR COUNTER === */
+        .visitor-counter {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            color: #ede0ed;
+            font-family: Arial, sans-serif;
+            font-size: 0.9rem;
+            background-color: rgba(174, 101, 174, 0.3);
+            padding: 8px 16px 8px 12px;
+            border-radius: 25px;
+            border: 2px solid rgba(237, 224, 237, 1);
+            backdrop-filter: blur(10px);
+            user-select: none;
+            -webkit-user-select: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+                         0 0 20px rgba(174, 101, 174, 0.8);
+            box-shadow: 0 0 20px rgba(174, 101, 174, 0.8),
+                        0 0 30px rgba(174, 101, 174, 0.5);
+        }
+
+        .visitor-icon {
+            width: 18px;
+            height: 18px;
+            fill: #ede0ed;
         }
     </style>
 </head>
 <body>
+    <!-- Custom Cursor -->
+    <div class="custom-cursor"></div>
+
+    <!-- Main Content -->
     <h1>Zenith Games</h1>
     <a href="games.html">
         <img src="Website Images/Zenith Logo.png" alt="Zenith Games Logo" class="logo">
     </a>
+
+    <!-- Live User Counter -->
+    <div class="visitor-counter">
+        <svg class="visitor-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+        </svg>
+        Live Users: <span id="visitor-count">Loading...</span>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
+    <script>
+        // ==================== FIREBASE CONFIGURATION ====================
+        const firebaseConfig = {
+            apiKey: "AIzaSyAzsQk4umtT2FOdyOVqpEwAbE5KFjTXCng",
+            authDomain: "zenith-games-29fcf.firebaseapp.com",
+            databaseURL: "https://zenith-games-29fcf-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "zenith-games-29fcf",
+            storageBucket: "zenith-games-29fcf.firebasestorage.app",
+            messagingSenderId: "353383659402",
+            appId: "1:353383659402:web:64530af8387a1b7c43ba73",
+            measurementId: "G-G0JNPP144W"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // ==================== LIVE USER TRACKING ====================
+        const userId = 'user_' + Math.random().toString(36).substr(2, 9);
+        const userRef = database.ref('activeUsers/' + userId);
+        const connectedRef = database.ref('.info/connected');
+
+        // Track user connection
+        connectedRef.on('value', (snapshot) => {
+            if (snapshot.val()) {
+                userRef.set(true);
+                userRef.onDisconnect().remove();
+            }
+        });
+
+        // Update live user count
+        const activeUsersRef = database.ref('activeUsers');
+        activeUsersRef.on('value', (snapshot) => {
+            const count = snapshot.numChildren();
+            document.getElementById('visitor-count').textContent = count;
+        });
+
+        // ==================== CUSTOM CURSOR ====================
+        const cursor = document.querySelector('.custom-cursor');
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+
+        // Track mouse position
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        // Animate cursor with smooth following
+        function animate() {
+            const speed = 0.9;
+            cursorX += (mouseX - cursorX) * speed;
+            cursorY += (mouseY - cursorY) * speed;
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Click effect - smaller and brighter
+        document.addEventListener('mousedown', () => {
+            cursor.style.width = '15px';
+            cursor.style.height = '15px';
+            cursor.style.backgroundColor = 'rgba(237, 224, 237, 0.5)';
+        });
+
+        document.addEventListener('mouseup', () => {
+            cursor.style.width = '20px';
+            cursor.style.height = '20px';
+            cursor.style.backgroundColor = 'rgba(237, 224, 237, 0.2)';
+        });
+    </script>
 </body>
 </html>
