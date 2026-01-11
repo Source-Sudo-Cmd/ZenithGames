@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zenith Games</title>
+    <title>Zenith</title>
     <link rel="icon" type="image/svg+xml" href="Website Images/Zenith Favicon.svg">
     <style>
         /* === BASE STYLES === */
@@ -16,8 +16,17 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            height: 100vh;
             text-align: center;
             cursor: none;
+            overflow: hidden;
+            transition: opacity 0.6s ease, transform 0.6s ease, filter 0.6s ease;
+        }
+
+        body.fade-out {
+            opacity: 0;
+            transform: scale(1.1);
+            filter: blur(20px);
         }
 
         /* === CUSTOM CURSOR === */
@@ -88,10 +97,8 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
-                         0 0 20px rgba(174, 101, 174, 0.8);
-            box-shadow: 0 0 20px rgba(174, 101, 174, 0.8),
-                        0 0 30px rgba(174, 101, 174, 0.5);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 12px rgba(174, 101, 174, 0.4);
         }
 
         .visitor-icon {
@@ -182,17 +189,27 @@
         }
         animate();
 
-        // Click effect - smaller and brighter
+        // Click effect - smaller with brighter border only
         document.addEventListener('mousedown', () => {
-            cursor.style.width = '15px';
-            cursor.style.height = '15px';
-            cursor.style.backgroundColor = 'rgba(237, 224, 237, 0.5)';
+            cursor.style.width = '16px';
+            cursor.style.height = '16px';
+            cursor.style.borderColor = 'rgba(237, 224, 237, 1)';
         });
 
         document.addEventListener('mouseup', () => {
             cursor.style.width = '20px';
             cursor.style.height = '20px';
-            cursor.style.backgroundColor = 'rgba(237, 224, 237, 0.2)';
+            cursor.style.borderColor = 'rgba(237, 224, 237, 0.5)';
+        });
+
+        // ==================== PAGE TRANSITION ====================
+        const link = document.querySelector('a[href="games.html"]');
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            document.body.classList.add('fade-out');
+            setTimeout(() => {
+                window.location.href = 'games.html';
+            }, 600);
         });
     </script>
 </body>

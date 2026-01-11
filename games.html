@@ -3,18 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Games - Zenith Games</title>
+    <title>Zenith</title>
     <link rel="icon" type="image/svg+xml" href="Website Images/Zenith Favicon.svg">
     <style>
+        /* === BASE STYLES === */
         body {
             margin: 0;
             padding: 0;
             background-color: #c5a6c5;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             min-height: 100vh;
+            height: 100vh;
+            text-align: center;
+            cursor: none;
+            overflow: hidden;
+            opacity: 0;
+            transform: scale(0.9);
+            filter: blur(20px);
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: scale(1);
+                filter: blur(0);
+            }
+        }
+
+        /* === CUSTOM CURSOR === */
+        .custom-cursor {
+            width: 20px;
+            height: 20px;
+            background-color: rgba(237, 224, 237, 0.2);
+            border: 2px solid rgba(237, 224, 237, 0.5);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.15s ease-out;
+            transform: translate(-50%, -50%);
+        }
+
+        a, img, button {
+            cursor: none !important;
+        }
+
+        /* === HEADER === */
+        h1 {
+            color: #ede0ed;
+            font-family: Arial, sans-serif;
+            font-size: 3rem;
+            margin: 0 0 2rem 0;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+                         0 0 20px rgba(174, 101, 174, 0.8),
+                         0 0 30px rgba(174, 101, 174, 0.5);
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        /* === HIDDEN SPACER === */
+        .logo-spacer {
+            max-width: 60vw;
+            max-height: 60vh;
+            width: auto;
+            height: auto;
+            visibility: hidden;
         }
     </style>
 </head>
 <body>
-    
+    <!-- Custom Cursor -->
+    <div class="custom-cursor"></div>
+
+    <!-- Header -->
+    <h1>Zenith Games</h1>
+    <img src="Website Images/Zenith Logo.png" alt="" class="logo-spacer">
+
+    <script>
+        // ==================== CUSTOM CURSOR ====================
+        const cursor = document.querySelector('.custom-cursor');
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+
+        // Track mouse position
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        // Animate cursor with smooth following
+        function animate() {
+            const speed = 0.9;
+            cursorX += (mouseX - cursorX) * speed;
+            cursorY += (mouseY - cursorY) * speed;
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Click effect - smaller with brighter border only
+        document.addEventListener('mousedown', () => {
+            cursor.style.width = '16px';
+            cursor.style.height = '16px';
+            cursor.style.borderColor = 'rgba(237, 224, 237, 1)';
+        });
+
+        document.addEventListener('mouseup', () => {
+            cursor.style.width = '20px';
+            cursor.style.height = '20px';
+            cursor.style.borderColor = 'rgba(237, 224, 237, 0.5)';
+        });
+    </script>
 </body>
 </html>
