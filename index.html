@@ -430,7 +430,7 @@
             
             gameCards.forEach(card => {
                 const gameName = card.getAttribute('data-game-name');
-                if (gameName.startsWith(searchValue)) {
+                if (gameName.includes(searchValue)) {
                     card.style.display = '';
                 } else {
                     card.style.display = 'none';
