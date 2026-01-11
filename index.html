@@ -18,7 +18,6 @@
             min-height: 100vh;
             height: 100vh;
             text-align: center;
-            cursor: none;
             overflow: hidden;
             transition: opacity 0.6s ease, transform 0.6s ease, filter 0.6s ease;
         }
@@ -27,24 +26,6 @@
             opacity: 0;
             transform: scale(1.1);
             filter: blur(20px);
-        }
-
-        /* === CUSTOM CURSOR === */
-        .custom-cursor {
-            width: 20px;
-            height: 20px;
-            background-color: rgba(237, 224, 237, 0.2);
-            border: 2px solid rgba(237, 224, 237, 0.5);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            transition: all 0.15s ease-out;
-            transform: translate(-50%, -50%);
-        }
-
-        a, img, button {
-            cursor: none !important;
         }
 
         /* === MAIN CONTENT === */
@@ -109,9 +90,6 @@
     </style>
 </head>
 <body>
-    <!-- Custom Cursor -->
-    <div class="custom-cursor"></div>
-
     <!-- Main Content -->
     <h1>Zenith Games</h1>
     <a href="games.html">
@@ -165,41 +143,6 @@
         activeUsersRef.on('value', (snapshot) => {
             const count = snapshot.numChildren();
             document.getElementById('visitor-count').textContent = count;
-        });
-
-        // ==================== CUSTOM CURSOR ====================
-        const cursor = document.querySelector('.custom-cursor');
-        let mouseX = 0, mouseY = 0;
-        let cursorX = 0, cursorY = 0;
-
-        // Track mouse position
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        });
-
-        // Animate cursor with smooth following
-        function animate() {
-            const speed = 0.9;
-            cursorX += (mouseX - cursorX) * speed;
-            cursorY += (mouseY - cursorY) * speed;
-            cursor.style.left = cursorX + 'px';
-            cursor.style.top = cursorY + 'px';
-            requestAnimationFrame(animate);
-        }
-        animate();
-
-        // Click effect - smaller with brighter border only
-        document.addEventListener('mousedown', () => {
-            cursor.style.width = '16px';
-            cursor.style.height = '16px';
-            cursor.style.borderColor = 'rgba(237, 224, 237, 1)';
-        });
-
-        document.addEventListener('mouseup', () => {
-            cursor.style.width = '20px';
-            cursor.style.height = '20px';
-            cursor.style.borderColor = 'rgba(237, 224, 237, 0.5)';
         });
 
         // ==================== PAGE TRANSITION ====================
