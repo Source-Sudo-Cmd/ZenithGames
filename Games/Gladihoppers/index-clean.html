@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+	<title>Gladihoppers</title>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			background: #000;
+		}
+		#gameContainer {
+			width: 100vw;
+			height: 100vh;
+		}
+		#unityContainer {
+			width: 100%;
+			height: 100%;
+		}
+	</style>
+</head>
+<body>
+	<div id="gameContainer">
+		<div id="unityContainer"></div>
+	</div>
+	
+	<script src="patch/js/UnityLoader.2019.2.js"></script>
+	<script>
+		var unityInstance = UnityLoader.instantiate("unityContainer", "Build/Gladihoppers.json");
+	</script>
+</body>
+</html>

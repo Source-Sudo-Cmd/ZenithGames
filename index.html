@@ -21,6 +21,42 @@
             overflow: hidden;
         }
 
+        /* === CUSTOM SCROLLBAR === */
+        ::-webkit-scrollbar {
+            width: 14px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            box-shadow: inset 0 0 10px rgba(237, 224, 237, 0.3);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #d4a8d4, #c089c0);
+            border-radius: 10px;
+            border: 2px solid rgba(237, 224, 237, 0.5);
+            box-shadow: 0 0 10px rgba(237, 224, 237, 0.8),
+                        0 0 20px rgba(197, 166, 197, 0.6);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #ede0ed, #d4a8d4);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.9),
+                        0 0 25px rgba(237, 224, 237, 0.8);
+            border-color: rgba(255, 255, 255, 0.7);
+        }
+
+        ::-webkit-scrollbar-thumb:active {
+            background: linear-gradient(180deg, #ffffff, #ede0ed);
+        }
+
+        /* Firefox scrollbar */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #d4a8d4 rgba(255, 255, 255, 0.2);
+        }
+
         /* === MAIN CONTENT === */
         h1 {
             color: #ede0ed;
@@ -89,14 +125,17 @@
             left: 0;
             width: 100%;
             height: 100%;
+            max-height: 100vh;
             background-color: #c5a6c5;
             z-index: 9998;
             overflow-y: auto;
-            padding: 80px 20px 40px;
+            overflow-x: hidden;
+            padding: 80px 20px 100px;
             opacity: 0;
             transform: scale(0.9);
             filter: blur(20px);
             transition: opacity 0.6s ease, transform 0.6s ease, filter 0.6s ease;
+            box-sizing: border-box;
         }
 
         .games-section.active {
@@ -182,8 +221,10 @@
             grid-template-columns: repeat(auto-fit, minmax(150px, 150px));
             gap: 30px;
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 0 auto 50px;
             justify-content: center;
+            padding-bottom: 40px;
+            height: auto;
         }
 
         .game-card {
@@ -344,6 +385,90 @@
                 <img src="Game Logos/Hollow knight image.png" alt="Hollow Knight" class="game-image">
                 <div class="game-info">
                     <h3 class="game-title">Hollow Knight</h3>
+                </div>
+            </div>
+            <div class="game-card" data-game-name="gladihoppers" onclick="openGame('Games/Gladihoppers/play.html', 'Gladihoppers')">
+                <img src="Game Logos/unnamed.png" alt="Gladihoppers" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Gladihoppers</h3>
+                </div>
+            </div>
+            <div class="game-card" data-game-name="super liquid soccer" onclick="openGame('Games/Superliquidsoccer/index.html', 'Super Liquid Soccer')">
+                <img src="Game Logos/super-liquid-soccer.png" alt="Super Liquid Soccer" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Super Liquid Soccer</h3>
+                </div>
+            </div>
+            <div class="game-card" data-game-name="football bros" onclick="openGame('Games/Football Bros.html', 'Football Bros')">
+                <img src="Game Logos/football-bros.webp" alt="Football Bros" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Football Bros</h3>
+                </div>
+            </div>
+            <div class="game-card" data-game-name="bust a loop" onclick="openGame('Games/Bust a Loop.html', 'Bust A Loop')">
+                <img src="Game Logos/BustAloop.jpg" alt="Bust A Loop" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Bust A Loop</h3>
+                </div>
+            </div>
+            <div class="game-card" data-game-name="ultrakill" onclick="openGame('Games/ULTRAKILL.html', 'Ultrakill')">
+                <img src="Game Logos/Ultrakill.jpg" alt="Ultrakill" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Ultrakill</h3>
+                </div>
+            </div>
+            <div class="game-card" data-game-name="buckshot roulette" onclick="openGame('Games/Buckshot Roulette.html', 'Buckshot Roulette')">
+                <img src="Game Logos/Buck.webp" alt="Buckshot Roulette" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Buckshot Roulette</h3>
+                </div>
+            </div>
+            <div class="game-card" data-game-name="that's not my neighbor" onclick="openGame('Games/That\'s Not My Neighbor.html', 'That\'s Not My Neighbor')">
+                <img src="Game Logos/Thatsnotmyneighbor.jpg" alt="That's Not My Neighbor" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">That's Not My Neighbor</h3>
+                </div>
+            </div>
+            <div class="game-card" data-game-name="people playground" onclick="openGame('Games/People Playground.html', 'People Playground')">
+                <img src="Game Logos/People Playgroundd.webp" alt="People Playground" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">People Playground</h3>
+                </div>
+            </div>
+            <div class="game-card" data-game-name="polytrack" onclick="openGame('Games/polytrack.html', 'Polytrack')">
+                <img src="Game Logos/polytracka.png" alt="Polytrack" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Polytrack</h3>
+                </div>
+            </div>
+            <div class="game-card" data-game-name="a dance of fire and ice" onclick="openGame('Games/ADOFAI.html', 'A Dance of Fire and Ice')">
+                <img src="Game Logos/artworks-000557983929-446om1-t500x500.jpg" alt="A Dance of Fire and Ice" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">A Dance of Fire and Ice</h3>
+                </div>
+            </div>
+            <div class="game-card" data-game-name="tanuki sunset" onclick="openGame('Games/Tanuki Sunset.html', 'Tanuki Sunset')">
+                <img src="Game Logos/1x1_NSwitchDS_TanukiSunset_image500w.jpg" alt="Tanuki Sunset" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Tanuki Sunset</h3>
+                </div>
+            </div>
+            <div class="game-card" data-game-name="deltarune" onclick="openGame('Games/Deltarune.html', 'Deltarune')">
+                <img src="Game Logos/deltarunea.webp" alt="Deltarune" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Deltarune</h3>
+                </div>
+            </div>
+            <div class="game-card" data-game-name="retro bowl college" onclick="openGame('Games/Retro_Bowl_College.html', 'Retro Bowl College')">
+                <img src="Game Logos/retro-bowl-college.png" alt="Retro Bowl College" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Retro Bowl College</h3>
+                </div>
+            </div>
+            <div class="game-card" data-game-name="retro bowl" onclick="openGame('Games/retro.html', 'Retro Bowl')">
+                <img src="Game Logos/swRMqEkK.jpg" alt="Retro Bowl" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Retro Bowl</h3>
                 </div>
             </div>
         </div>
