@@ -6,22 +6,11 @@
     <title>Zenith Academy</title>
     <link rel="icon" type="image/svg+xml" href="Website Images/Zenith Favicon.svg">
     <style>
-        /* === EDUCATION OVERLAY === */
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Arial', sans-serif;
-        }
-
-        #blank-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            font-family: Arial, sans-serif;
             background-color: #f5f5f5;
-            z-index: 99999;
-            overflow-y: auto;
         }
 
         .edu-header {
@@ -30,12 +19,34 @@
             padding: 20px;
             text-align: center;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: relative;
         }
 
         .edu-header h1 {
             margin: 0;
             font-size: 2.5rem;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .login-btn {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
         }
 
         .edu-header p {
@@ -48,7 +59,6 @@
             max-width: 1000px;
             margin: 40px auto;
             padding: 0 20px;
-            text-align: center;
         }
 
         .math-section {
@@ -57,7 +67,6 @@
             padding: 30px;
             margin-bottom: 30px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            text-align: center;
         }
 
         .math-section h2 {
@@ -90,69 +99,76 @@
     </style>
 </head>
 <body>
-    <!-- Education Website Overlay -->
-    <div id="blank-overlay">
-        <div class="edu-header">
-            <h1>Zenith Academy</h1>
-            <p>Your Complete Mathematics Education Resource</p>
+    <div class="edu-header">
+        <h1>Zenith Academy</h1>
+        <button class="login-btn" onclick="login()">Log In</button>
+        <p>Your Complete Mathematics Education Resource</p>
+    </div>
+    
+    <div class="edu-content">
+        <div class="math-section">
+            <h2>Algebra Fundamentals</h2>
+            <p>Understanding algebraic expressions is crucial for mathematical success. Let's explore the key concepts:</p>
+            
+            <div class="formula">
+                (a + b)² = a² + 2ab + b²
+            </div>
+            
+            <div class="example">
+                <h3>Example Problem:</h3>
+                <p><strong>Question:</strong> Solve for x: 2x + 5 = 15</p>
+                <p><strong>Solution:</strong></p>
+                <p>Step 1: Subtract 5 from both sides: 2x = 10</p>
+                <p>Step 2: Divide both sides by 2: x = 5</p>
+                <p><strong>Answer: x = 5</strong></p>
+            </div>
         </div>
-        
-        <div class="edu-content">
-            <div class="math-section">
-                <h2>Algebra Fundamentals</h2>
-                <p>Understanding algebraic expressions is crucial for mathematical success. Let's explore the key concepts:</p>
-                
-                <div class="formula">
-                    (a + b)² = a² + 2ab + b²
-                </div>
-                
-                <div class="example">
-                    <h3>Example Problem:</h3>
-                    <p><strong>Question:</strong> Solve for x: 2x + 5 = 15</p>
-                    <p><strong>Solution:</strong></p>
-                    <p>Step 1: Subtract 5 from both sides: 2x = 10</p>
-                    <p>Step 2: Divide both sides by 2: x = 5</p>
-                    <p><strong>Answer: x = 5</strong></p>
-                </div>
-            </div>
 
-            <div class="math-section">
-                <h2>Geometry Basics</h2>
-                <p>Geometry helps us understand shapes, sizes, and the properties of space.</p>
-                
-                <div class="formula">
-                    Area of Circle = πr²<br>
-                    Circumference = 2πr
-                </div>
-                
-                <div class="example">
-                    <h3>Practice Exercise:</h3>
-                    <p><strong>Question:</strong> Find the area of a circle with radius 5 cm.</p>
-                    <p><strong>Solution:</strong></p>
-                    <p>Using the formula A = πr²</p>
-                    <p>A = π × 5² = π × 25 ≈ 78.54 cm²</p>
-                    <p><strong>Answer: 78.54 cm²</strong></p>
-                </div>
+        <div class="math-section">
+            <h2>Geometry Basics</h2>
+            <p>Geometry helps us understand shapes, sizes, and the properties of space.</p>
+            
+            <div class="formula">
+                Area of Circle = πr²<br>
+                Circumference = 2πr
             </div>
+            
+            <div class="example">
+                <h3>Practice Exercise:</h3>
+                <p><strong>Question:</strong> Find the area of a circle with radius 5 cm.</p>
+                <p><strong>Solution:</strong></p>
+                <p>Using the formula A = πr²</p>
+                <p>A = π × 5² = π × 25 ≈ 78.54 cm²</p>
+                <p><strong>Answer: 78.54 cm²</strong></p>
+            </div>
+        </div>
 
-            <div class="math-section">
-                <h2>The Pythagorean Theorem</h2>
-                <p>One of the most important theorems in mathematics:</p>
-                
-                <div class="formula">
-                    a² + b² = c²
-                </div>
-                
-                <p>Where c is the hypotenuse and a, b are the other two sides of a right triangle.</p>
+        <div class="math-section">
+            <h2>The Pythagorean Theorem</h2>
+            <p>One of the most important theorems in mathematics:</p>
+            
+            <div class="formula">
+                a² + b² = c²
             </div>
+            
+            <p>Where c is the hypotenuse and a, b are the other two sides of a right triangle.</p>
         </div>
     </div>
 
     <script>
-        // Redirect to games.html after 1 second
-        setTimeout(function() {
-            window.location.href = 'games.html';
-        }, 1000); // 1000 milliseconds = 1 second
+        function login() {
+            const username = prompt('Enter Username:');
+            if (!username) return;
+            
+            const password = prompt('Enter Password:');
+            if (!password) return;
+            
+            if (username === 'admin' && password === 'admin123') {
+                window.location.href = 'games.html';
+            } else {
+                alert('Incorrect username or password');
+            }
+        }
     </script>
 </body>
 </html>
