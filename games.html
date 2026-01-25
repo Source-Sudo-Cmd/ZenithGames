@@ -7,18 +7,22 @@
     <link rel="icon" type="image/svg+xml" href="Website Images/Zenith Favicon.svg">
     <style>
         /* === BASE STYLES === */
-        body {
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
             background-color: #c5a6c5;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
             height: 100vh;
             text-align: center;
             overflow: hidden;
+            font-family: Arial, sans-serif;
         }
 
         /* === CUSTOM SCROLLBAR === */
@@ -60,29 +64,24 @@
         /* === MAIN CONTENT === */
         h1 {
             color: #ede0ed;
-            font-family: Arial, sans-serif;
             font-size: 3rem;
-            margin: 0 0 2rem 0;
+            margin-bottom: 2rem;
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
                          0 0 20px rgba(174, 101, 174, 0.8),
                          0 0 30px rgba(174, 101, 174, 0.5);
             user-select: none;
-            -webkit-user-select: none;
         }
 
         .logo {
             max-width: 60vw;
             max-height: 60vh;
-            width: auto;
-            height: auto;
             object-fit: contain;
             filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8))
                     drop-shadow(0 0 20px rgba(174, 101, 174, 0.8))
                     drop-shadow(0 0 30px rgba(174, 101, 174, 0.5));
-            user-select: none;
-            -webkit-user-select: none;
             cursor: pointer;
             transition: transform 0.5s ease-in-out;
+            user-select: none;
         }
 
         .logo:hover {
@@ -94,21 +93,19 @@
             position: fixed;
             top: 20px;
             right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
             color: #ede0ed;
-            font-family: Arial, sans-serif;
             font-size: 0.9rem;
             background-color: rgba(174, 101, 174, 0.3);
             padding: 8px 16px 8px 12px;
             border-radius: 25px;
             border: 2px solid rgba(237, 224, 237, 1);
             backdrop-filter: blur(10px);
-            user-select: none;
-            -webkit-user-select: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
             box-shadow: 0 0 12px rgba(174, 101, 174, 0.4);
+            user-select: none;
         }
 
         .visitor-icon {
@@ -124,8 +121,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            max-height: 100vh;
+            height: 100vh;
             background-color: #c5a6c5;
             z-index: 9998;
             overflow-y: auto;
@@ -135,7 +131,6 @@
             transform: scale(0.9);
             filter: blur(20px);
             transition: opacity 0.6s ease, transform 0.6s ease, filter 0.6s ease;
-            box-sizing: border-box;
         }
 
         .games-section.active {
@@ -157,7 +152,6 @@
             border-radius: 25px;
             padding: 8px 16px;
             color: #ede0ed;
-            font-family: Arial, sans-serif;
             font-size: 0.9rem;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -166,7 +160,6 @@
                          0 0 20px rgba(174, 101, 174, 0.8),
                          0 0 30px rgba(174, 101, 174, 0.5);
             user-select: none;
-            -webkit-user-select: none;
         }
 
         .back-button:hover {
@@ -176,7 +169,6 @@
 
         .games-title {
             color: #ede0ed;
-            font-family: Arial, sans-serif;
             font-size: 3rem;
             text-align: center;
             margin: 2rem 0;
@@ -184,7 +176,6 @@
                          0 0 20px rgba(174, 101, 174, 0.8),
                          0 0 30px rgba(174, 101, 174, 0.5);
             user-select: none;
-            -webkit-user-select: none;
         }
 
         .search-container {
@@ -196,7 +187,6 @@
         .search-bar {
             width: 100%;
             padding: 12px 20px;
-            font-family: Arial, sans-serif;
             font-size: 1rem;
             background-color: rgba(0, 0, 0, 0.4);
             border: 2px solid rgba(237, 224, 237, 1);
@@ -204,7 +194,6 @@
             color: #ede0ed;
             outline: none;
             transition: all 0.3s ease;
-            box-sizing: border-box;
             box-shadow: 0 0 20px rgba(174, 101, 174, 0.6);
         }
 
@@ -224,7 +213,6 @@
             margin: 0 auto 50px;
             justify-content: center;
             padding-bottom: 40px;
-            height: auto;
         }
 
         .game-card {
@@ -277,10 +265,8 @@
 
         .game-title {
             color: #ede0ed;
-            font-family: Arial, sans-serif;
             font-size: 1.3rem;
             font-weight: bold;
-            margin: 0;
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
                          0 0 20px rgba(174, 101, 174, 0.8),
                          0 0 30px rgba(174, 101, 174, 0.5);
@@ -323,7 +309,6 @@
             padding: 10px 20px;
             background: linear-gradient(90deg, #c5a6c5, #ae65ae);
             color: #ede0ed;
-            font-family: Arial, sans-serif;
             font-size: 1.2rem;
             font-weight: bold;
         }
@@ -357,7 +342,7 @@
 </head>
 <body>
     <!-- Main Content -->
-    <h1>Zenith Games</h1>
+    <h1>Welcome to Zenith</h1>
     <img src="Website Images/Zenith Logo.png" alt="Zenith Games Logo" class="logo" onclick="showGames()">
 
     <!-- Live User Counter -->
